@@ -139,7 +139,7 @@ export const search = async (req, res, next) => {
 
     // turn the tags to an array
     // tags =  tags.split(",")
-    console.log({query});
+    // console.log({query});
 
     try {
         //find where the video includes any letter of the search term

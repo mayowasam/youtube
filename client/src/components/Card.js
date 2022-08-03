@@ -7,13 +7,14 @@ import avatar from '../assets/user.png'
 
 
 const Container = styled.div`
-// width: ${(props) => props.type !== "sm" && "360px"};
 width: 360px;
-// margin-bottom: ${(props) => (props.type === "sm" ? "10px" : "45px")};
   cursor: pointer;
-  // display: ${(props) => props.type === "sm" && "flex"};
   gap: 10px;
-  // border: 2px solid yellow;
+
+  @media (max-width: 700px){
+    width: 100%;
+
+  }
 `;
 
 const Image = styled.img`
@@ -27,11 +28,8 @@ const Image = styled.img`
 const Details = styled.div`
   display: flex;
   align-items:center;
-  // margin-top: ${(props) => props.type !== "sm" && "16px"};
-  // margin-top:16px;
   gap: 1rem;
   flex: 1;
-  // border: 2px solid red;
 `;
 
 const ChannelImage = styled.img`
@@ -75,7 +73,7 @@ const Card = ({ type, video }) => {
     const fetchVideoDetails = async () => {
       try {
         const { data } = await axios.get(`${process.env.REACT_APP_SERVER_URL}/user/${video.userId}`)
-        console.log(data.data);
+        // console.log(data.data);
         setVideoOwner(data.data);
 
       } catch (error) {

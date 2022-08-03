@@ -22,6 +22,14 @@ const Container = styled.div`
   align-items: center;
   justify-content: center;
   z-index: 6;
+
+  // @media (max-width: 700px){
+  //   width: 50%;
+  //   height: 50%;
+  //   top: 50%;
+  //   left: 50%;
+  //   transform: translate(-50%, -50%);
+  // }
 `;
 
 const Wrapper = styled.div`
@@ -34,6 +42,13 @@ const Wrapper = styled.div`
   flex-direction: column;
   gap: 20px;
   position: relative;
+
+
+  @media (max-width: 700px){
+    width: 80%;
+    height: 80%;
+   
+  }
 `;
 const Close = styled.div`
   position: absolute;
@@ -43,6 +58,10 @@ const Close = styled.div`
 `;
 const Title = styled.h1`
   text-align: center;
+
+  @media (max-width: 700px){
+    font-size: 1.1rem;
+  }
 `;
 
 const Input = styled.input`
@@ -138,6 +157,8 @@ const Upload = ({ setOpen }) => {
 
   const handleUpload = async (e)=>{
     e.preventDefault();
+    // console.log(inputs);
+    // console.log(tags);
     try {
       const {data} = await axios.post(`${process.env.REACT_APP_SERVER_URL}/video`, {...inputs, tags})
       setOpen(false)
@@ -180,7 +201,7 @@ const Upload = ({ setOpen }) => {
         <Input
           type="text"
           placeholder="Separate the tags with commas."
-          onChance={handleTags}
+          onChange={handleTags}
         />
         <Label>Image:</Label>
         {imgPerc > 0 ? (

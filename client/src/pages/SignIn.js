@@ -91,7 +91,6 @@ const Link = styled.span`
 
 const SignIn = () => {
   const [formData, setFormData] = useState({
-    name: "",
     email: "",
     password: ""
   })
@@ -103,6 +102,7 @@ const SignIn = () => {
   })
 
   const { email, password } = formData
+
   const dispatch = useDispatch();
   const navigate = useNavigate()
 
@@ -113,7 +113,7 @@ const SignIn = () => {
     dispatch(loader());
     try {
       const { data } = await axios.post(`${process.env.REACT_APP_SERVER_URL}/auth/signin`, { email, password });
-      console.log(data.user);
+      // console.log(data.user);
       dispatch(loginSuccess(data.user));
       navigate("/")
     } catch (err) {
@@ -127,7 +127,7 @@ const SignIn = () => {
     dispatch(loader());
     signInWithPopup(auth, provider)
       .then((result) => {
-        console.log({result});
+        // console.log({result});
 
         //after i get a user obj from google
         //send it to the backend
@@ -138,7 +138,7 @@ const SignIn = () => {
             img: result.user.photoURL,
           })
           .then((res) => {
-            console.log(res)
+            // console.log(res)
             dispatch(loginSuccess(res.data.user));
             navigate("/")
           });
@@ -149,6 +149,22 @@ const SignIn = () => {
   };
 
   //TODO: REGISTER FUNCTIONALITY
+  const { name, email:registerEmail, password: registerPassowrd } = form
+
+  const Register = async(e) => {
+    e.preventDefault();
+    if(!name || !registerEmail || !registerPassowrd) return;
+    dispatch(loader());
+    try {
+      const { data } = await axios.post(`${process.env.REACT_APP_SERVER_URL}/auth/signup`, {name, email:registerEmail, password:registerPassowrd });
+      // console.log(data.user);
+      dispatch(loginSuccess(data.user));
+      navigate("/")
+    } catch (err) {
+      dispatch(loginFailure());
+    }
+
+  }
 
 
   return (
@@ -179,7 +195,7 @@ const SignIn = () => {
         <Title>or</Title>
 
 
-        <form>
+        <form onSubmit={Register}>
 
           <Input
             placeholder="username"

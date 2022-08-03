@@ -3,7 +3,6 @@ import styled from "styled-components";
 import { AiFillFolderAdd } from 'react-icons/ai'
 import { BsHandThumbsUp, BsHandThumbsDown, BsHandIndexThumbFill, BsFillHandThumbsDownFill, BsReply } from "react-icons/bs";
 import Comments from "../components/Comments";
-import Card from "../components/Card";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import axios from "axios";
@@ -16,6 +15,8 @@ import avatar from '../assets/user.png'
 const Container = styled.div`
   display: flex;
   gap: 24px;
+  min-height: 100vh;
+
 `;
 
 const Content = styled.div`

@@ -11,6 +11,10 @@ const NewComment = styled.div`
   display: flex;
   align-items: center;
   gap: 10px;
+
+  form{
+    width: 100%;
+  }
 `;
 
 const Avatar = styled.img`
@@ -18,6 +22,7 @@ const Avatar = styled.img`
   height: 50px;
   border-radius: 50%;
 `;
+
 
 const Input = styled.input`
   border: none;
@@ -29,32 +34,61 @@ const Input = styled.input`
   width: 100%;
 `;
 
-const Comments = ({videoId}) => {
+const Comments = ({ videoId }) => {
 
   const { currentUser } = useSelector((state) => state.user);
 
   const [comments, setComments] = useState([]);
 
+  const [newComment, setNewComment] = useState("")
+
   useEffect(() => {
     const fetchComments = async () => {
       try {
-        const {data} = await axios.get(`${process.env.REACT_APP_SERVER_URL}/comment/${videoId}`);
+        const { data } = await axios.get(`${process.env.REACT_APP_SERVER_URL}/comment/${videoId}`);
         setComments(data.data);
-      } catch (err) {}
+      } catch (err) { }
     };
     fetchComments();
   }, [videoId]);
 
+
+
   //TODO: ADD NEW COMMENT FUNCTIONALITY
+
+  const AddComment = async (e) => {
+    e.preventDefault()
+    // console.log({ newComment });
+
+    try {
+      const {data} = await axios.post(`${process.env.REACT_APP_SERVER_URL}/comment`,{
+        videoId,
+        desc:newComment
+      })
+      // console.log(data.data);
+
+      if(data.success){
+        setNewComment("")
+        setComments(data.data)
+      }
+      
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   return (
     <Container>
       <NewComment>
-        <Avatar src={currentUser.img ?currentUser.img : avatar} />
-        <Input placeholder="Add a comment..." />
+        <Avatar src={currentUser.img ? currentUser.img : avatar} />
+
+        <form onSubmit={AddComment}>
+          <Input placeholder="Add a comment..." value={newComment} onChange={e => setNewComment(e.target.value)} />
+
+        </form>
       </NewComment>
-      {comments.map(comment=>(
-        <Comment key={comment._id} comment={comment}/>
+      {comments.map(comment => (
+        <Comment key={comment._id} comment={comment} />
       ))}
     </Container>
   );

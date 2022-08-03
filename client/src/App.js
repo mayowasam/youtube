@@ -16,22 +16,36 @@ const Container = styled.div`
   display: flex;
   width: 100%;
   height: 100vh;
-//   border: 2px solid red;
   overflow: hidden;
+
+
+  @media (max-width: 700px){
+    height: 100vh;
+    overflow: hidden;
+    flex-direction:column-reverse;
+  }
 `;
 
 const Main = styled.div`
   flex: 7;
   height: 100%;
   background-color: ${({ theme }) => theme.bg};
-  border: 2px solid purple;
+  // border: 2px solid purple;
   overflow-y: scroll;
+
+  @media (max-width: 700px){
+    overflow-y: scroll;
+  }
 
 `;
 const Wrapper = styled.div`
   padding: 22px;
-border: 2px solid blue;
+  // border: 2px solid blue;
 
+  @media (max-width: 700px){
+    padding: 1rem;
+
+  }
 
 `;
 

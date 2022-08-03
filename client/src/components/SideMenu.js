@@ -18,17 +18,40 @@ flex: 1;
 background-color: ${({ theme }) => theme.bgLighter};
 color: ${({ theme }) => theme.text};
 font-size: 14px;
-border: 2px solid green;
+// border: 2px solid green;
+
+
+@media (max-width: 700px){
+  height: 100%;
+  position: unset;
+
+
+}
+
+
+
+
 `;
 const Wrapper = styled.div`
   padding: 18px 26px;
+
+  @media (max-width: 700px){
+    display: flex;
+    padding: 0 1rem;
+    justify-content: space-between;
+
+    .hide{
+      display: none;
+    }
+
+  }
 `;
 const Logo = styled.div`
   display: flex;
   align-items: center;
   gap: 5px;
   font-weight: bold;
-  margin-bottom: 25px;
+  margin-bottom: .5rem;
 `;
 
 const Img = styled.img`
@@ -38,21 +61,38 @@ const Img = styled.img`
 const Item = styled.div`
   display: flex;
   align-items: center;
-  gap: 20px;
+  gap: 1rem;
   cursor: pointer;
   padding: 7.5px 0px;
 
   &:hover {
     background-color: ${({ theme }) => theme.soft};
   }
+
+
+  @media (max-width: 700px){
+    flex-direction:column;
+
+    svg{
+      font-size: 1.5rem;
+    }
+
+  }
 `;
 
 const Hr = styled.hr`
-  margin: 15px 0px;
+  margin: .5rem 0px;
   border: 0.5px solid ${({ theme }) => theme.soft};
+
+  @media (max-width: 700px){
+    display: none;
+  }
 `;
 
-const Login = styled.div``;
+const Login = styled.div`
+
+
+`;
 const Button = styled.button`
   padding: 5px 15px;
   background-color: transparent;
@@ -71,7 +111,7 @@ const Title = styled.h2`
   font-size: 14px;
   font-weight: 500;
   color: #aaaaaa;
-  margin-bottom: 20px;
+  margin-bottom: 1rem;
 `;
 
 const SideMenu = ({ darkMode, setDarkMode }) => {
@@ -80,7 +120,7 @@ const SideMenu = ({ darkMode, setDarkMode }) => {
   return (
     <Container>
       <Wrapper>
-        <Link to="/" style={{ textDecoration: "none", color: "inherit" }}>
+        <Link to="/" style={{ textDecoration: "none", color: "inherit" }} className="hide">
           <Logo>
             <Img src={logo} />
             MTube
@@ -109,19 +149,20 @@ const SideMenu = ({ darkMode, setDarkMode }) => {
           </Item>
         </Link>
         <Hr />
-        <Item>
+        <Item className="hide">
           <AiFillVideoCamera />
           Library
         </Item>
-        <Item>
+        <Item className="hide">
           <AiOutlineHistory />
           History
         </Item>
         <Hr />
         {!currentUser &&
           <>
-            <Login>
-              Sign in to like videos, comment, and subscribe.
+            <Login className="hide">
+              <span>Sign in to like videos, comment, and subscribe.</span>
+
               <Link to="signin" style={{ textDecoration: "none" }}>
                 <Button>
                   <MdAccountCircle />
@@ -132,45 +173,56 @@ const SideMenu = ({ darkMode, setDarkMode }) => {
             <Hr />
           </>
         }
-        <Title>BEST OF MTUBE</Title>
-        <Item>
+
+        <Title className="hide">BEST OF MTUBE</Title>
+        <Item className="hide">
           <MdLibraryMusic />
           Music
         </Item>
-        <Item>
+        <Item className="hide">
           <IoIosBasketball />
           Sports
         </Item>
-        <Item>
+        <Item className="hide">
           <IoLogoGameControllerA />
           Gaming
         </Item>
-        <Item>
+        <Item className="hide">
           <MdOutlineMovie />
           Movies
         </Item>
-        <Item>
-          <MdOutlineArticle />
-          News
-        </Item>
-        <Item>
-          <MdLiveTv />
-          Live
-        </Item>
+        {currentUser && (
+          <>
+            <Item className="hide">
+              <MdOutlineArticle />
+              News
+            </Item>
+            <Item className="hide">
+              <MdLiveTv />
+              Live
+            </Item>
+          </>
+
+        )}
         <Hr />
-        <Item>
+        <Item className="hide">
           <AiOutlineSetting />
           Settings
         </Item>
-        <Item>
-          <IoFlagOutline />
-          Report
-        </Item>
-        <Item>
-          <IoIosHelpCircle />
-          Help
-        </Item>
-        <Item onClick={() => setDarkMode(!darkMode)}>
+        {currentUser && (
+          <>
+            <Item className="hide">
+              <IoFlagOutline />
+              Report
+            </Item>
+            <Item className="hide">
+              <IoIosHelpCircle />
+              Help
+            </Item>
+          </>
+
+        )}
+        <Item onClick={() => setDarkMode(!darkMode)} className="hide">
           <BsBrightnessHigh />
           {darkMode ? "Light" : "Dark"} Mode
         </Item>

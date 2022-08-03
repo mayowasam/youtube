@@ -6,13 +6,20 @@ import axios from "axios";
 
 const Container = styled.div`
   width: 100%;
-  height: 100%;
+  min-height: 100vh;
   display: flex;
   flex-wrap: wrap;
   // justify-content: space-between;
   gap: 2rem;
-  border: 2px solid red;
+  // border: 2px solid red;
 
+  @media (max-width: 700px){
+    a{
+      width: 100%;
+
+    }
+
+  }
 
 `;
 

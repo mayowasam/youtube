@@ -42,11 +42,19 @@ export const signUp = async (req, res, next) => {
         await User.create({ name, email, password })
         user = await User.findOne({ email }).select('-password')
 
-        res.status(200).json({
-            success: true,
-            message: 'succesfully registered user',
-            user
+        const token = jwt.sign({ id: user._id }, process.env.ACCESS_TOKEN)
+        res.cookie("accessToken", token, {
+            httpOnly: true,
+            sameSite: "none",
+            secure: true, // it must be false for postman to be able to store it
         })
+            .status(200)
+            .json({
+                success: true,
+                message: 'succesfully signed up',
+                user
+            })
+
 
     } catch (error) {
         next(error)

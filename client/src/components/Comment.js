@@ -43,7 +43,7 @@ const Comment = ({ comment }) => {
   useEffect(() => {
     const fetchComment = async () => {
       const {data} = await axios.get(`${process.env.REACT_APP_SERVER_URL}/user/${comment.userId}`);
-      console.log(data);
+      // console.log(data);
       setChannel(data.data)
     };
     fetchComment();
