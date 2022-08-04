@@ -121,7 +121,7 @@ const Upload = ({ setOpen }) => {
       "state_changed",
       (snapshot) => {
         const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-        console.log("upload is " + progress + "% done");
+        // console.log("upload is " + progress + "% done");
         urlType === "imgUrl" ? setImgPerc(Math.round(progress)) : setVideoPerc(Math.round(progress));
         switch (snapshot.state) {
           case "paused":
@@ -147,6 +147,8 @@ const Upload = ({ setOpen }) => {
     );
   };
 
+
+  // console.log({inputs});
   useEffect(() => {
     video && uploadFile(video , "videoUrl");
   }, [video]);
@@ -162,8 +164,8 @@ const Upload = ({ setOpen }) => {
     try {
       const {data} = await axios.post(`${process.env.REACT_APP_SERVER_URL}/video`, {...inputs, tags})
       setOpen(false)
-      console.log(data.data._id); 
-      data.status===200 && navigate(`/video/${data.data._id}`)
+      // console.log("id", data.data._id); 
+      data.status===200 && window.location.reload()
       
     } catch (error) {
       console.log(error);

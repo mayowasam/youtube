@@ -114,6 +114,16 @@ const VideoFrame = styled.video`
   object-fit: cover;
 `;
 
+const Load = styled.div`
+  display: flex;
+ align-items: center; 
+ justify-content: center; 
+ font-size:2rem;
+ height: 100vh; 
+ color: ${({ theme }) => theme.text};
+
+`
+
 const Video = () => {
   const { currentUser } = useSelector((state) => state.user);
   const { currentVideo, loading } = useSelector((state) => state.video);
@@ -133,7 +143,7 @@ const Video = () => {
         // console.log({data});
         //get the uploader of the video
         const { data: channelRes } = await axios.get(`${process.env.REACT_APP_SERVER_URL}/user/${data.data.userId}`);
-        console.log({ channelRes });
+        // console.log({ channelRes });
         //set the uploader
         setChannel(channelRes.data);
         //dispatch the video
@@ -228,22 +238,25 @@ const Video = () => {
                   <Description>{currentVideo.description}</Description>
                 </ChannelDetail>
               </ChannelInfo>
-              {currentUser &&      
-              <Subscribe onClick={handleSub}>
-                {currentUser.subscribedUsers?.includes(channel._id)
-                  ? "SUBSCRIBED"
-                  : "SUBSCRIBE"}
-              </Subscribe>
-}
+              {currentUser &&
+                <Subscribe onClick={handleSub}>
+                  {currentUser.subscribedUsers?.includes(channel._id)
+                    ? "SUBSCRIBED"
+                    : "SUBSCRIBE"}
+                </Subscribe>
+              }
             </Channel>
             <Hr />
-            {currentUser && <Comments videoId={currentVideo._id} /> }
+            {currentUser && <Comments videoId={currentVideo._id} />}
           </Content>
           <Recommendation tags={currentVideo.tags} />
         </Container>
 
         :
-        <p>loading</p>
+        <Load >
+          loading....
+
+        </Load>
       }
     </>
   );

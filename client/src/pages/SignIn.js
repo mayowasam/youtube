@@ -118,6 +118,7 @@ const SignIn = () => {
       navigate("/")
     } catch (err) {
       dispatch(loginFailure());
+      alert(err.message)
     }
   };
 

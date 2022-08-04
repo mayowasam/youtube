@@ -18,7 +18,7 @@ const Recommendation = ({ tags }) => {
   useEffect(() => {
     const fetchVideos = async () => {
       const { data } = await axios.get(`${process.env.REACT_APP_SERVER_URL}/video/tags?tags=${tags}`);
-      console.log(data.data);
+      // console.log(data.data);
       setVideos(data.data);
     };
     fetchVideos();
