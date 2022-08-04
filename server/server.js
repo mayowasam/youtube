@@ -7,6 +7,12 @@ import userRouter from "./routes/user.js"
 import videoRouter from "./routes/video.js"
 import commentRouter from "./routes/comment.js"
 import cookieParser from 'cookie-parser'
+import path from 'path'
+import {fileURLToPath} from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 
 //init env and mongodb
 dotenv.config()
@@ -38,6 +44,12 @@ app.use((err, req, res, next) => {
 
 })
 
+app.use(express.static(path.join(__dirname, "build")))
+
+app.get("*", (req, res) =>{
+    res.sendFile(path.join(__dirname, "build", "index.html"))
+})
+ 
 
 
 
