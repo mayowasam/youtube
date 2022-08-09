@@ -17,6 +17,11 @@ const Container = styled.div`
   color: ${({ theme }) => theme.text};
   gap: 1rem;
 
+  @media (max-width: 700px){
+    height: unset;
+
+  }
+
 `;
 
 const Wrapper = styled.div`
@@ -41,15 +46,34 @@ const Wrapper = styled.div`
     }
   
   }
+  @media (max-width: 960px){
+    width: 50%;
+   }
+
+
+   @media (max-width: 700px){
+    width: 100%;
+   }
 `;
 
 const Title = styled.h1`
   font-size: 1.2rem;
+
+  @media (max-width: 700px){
+  font-size: 1rem;
+
+  }
+ 
 `;
 
 const SubTitle = styled.h2`
   font-size: 1rem;
   font-weight: 300;
+
+  @media (max-width: 700px){
+    font-size: .8rem;
+  
+    }
 `;
 
 const Input = styled.input`
@@ -76,6 +100,11 @@ const More = styled.div`
   font-size: .8rem;
   color: ${({ theme }) => theme.textSoft};
   gap: 0 1rem;
+
+  @media (max-width: 700px){
+    gap: 0 .5rem;
+
+  }
 
 `;
 

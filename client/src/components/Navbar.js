@@ -153,7 +153,7 @@ const User = styled.div`
       top:100%;
      
       background:${({ theme }) => theme.textSoft};
-      width: 8rem;
+      width: 10rem;
       padding: .5rem 1rem;
       box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
       z-index: 1;

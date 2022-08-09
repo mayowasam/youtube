@@ -10,6 +10,19 @@ const Container = styled.div`
   top: 0;
   // overflow-y scroll;
 
+  @media (max-width: 992px){
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    a{
+
+     margin: 1rem 0;
+
+    }
+
+  }
+
 `;
 
 const Recommendation = ({ tags }) => {

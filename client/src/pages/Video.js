@@ -17,11 +17,22 @@ const Container = styled.div`
   gap: 24px;
   min-height: 100vh;
 
+  @media (max-width: 992px){
+    flex-direction: column;
+  }
+
 `;
 
 const Content = styled.div`
   flex: 5;
+
+  @media (max-width: 992px){
+    flex: 1;
+  }
+
 `;
+
+
 const VideoWrapper = styled.div``;
 
 const Title = styled.h1`
@@ -36,16 +47,38 @@ const Details = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+
+
+  
+  @media (max-width: 992px){
+    flex-direction: column;
+    align-items: flex-start;
+
+    gap: .6rem;
+
+  }
 `;
 
 const Info = styled.span`
   color: ${({ theme }) => theme.textSoft};
+
+  @media (max-width: 992px){
+    font-size: .8rem;
+  }
 `;
 
 const Buttons = styled.div`
   display: flex;
   gap: 20px;
   color: ${({ theme }) => theme.text};
+
+  @media (max-width: 992px){
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    gap: unset;
+
+  }
 `;
 
 const Button = styled.div`
@@ -53,6 +86,17 @@ const Button = styled.div`
   align-items: center;
   gap: 5px;
   cursor: pointer;
+
+  @media (max-width: 992px){
+    flex-direction: column;
+    gap: .3rem;
+    font-size: .8rem;
+
+    svg{
+      font-size: 1.2rem;
+    }
+
+  }
 `;
 
 const Hr = styled.hr`
@@ -74,6 +118,11 @@ const Image = styled.img`
   width: 50px;
   height: 50px;
   border-radius: 50%;
+
+  @media (max-width: 992px){
+    width: 30px;
+   height: 30px;
+  }
 `;
 
 const ChannelDetail = styled.div`
@@ -84,6 +133,10 @@ const ChannelDetail = styled.div`
 
 const ChannelName = styled.span`
   font-weight: 500;
+
+  @media (max-width: 992px){
+    font-size: .8rem;
+  }
 `;
 
 const ChannelCounter = styled.span`
@@ -95,6 +148,10 @@ const ChannelCounter = styled.span`
 
 const Description = styled.p`
   font-size: 14px;
+
+  @media (max-width: 992px){
+    font-size: .8rem;
+    }
 `;
 
 const Subscribe = styled.button`
@@ -139,6 +196,7 @@ const Video = () => {
       try {
         dispatch(fetchStart())
         //get the video by the id
+        // console.log("testing");
         const { data } = await axios.get(`${process.env.REACT_APP_SERVER_URL}/video/find/${id}`);
         // console.log({data});
         //get the uploader of the video
@@ -189,29 +247,30 @@ const Video = () => {
     <>
       {!loading ?
         <Container>
+
           <Content>
             <VideoWrapper>
-              <VideoFrame src={currentVideo.videoUrl} controls />
+              <VideoFrame src={currentVideo?.videoUrl} controls />
             </VideoWrapper>
-            <Title>{currentVideo.title}</Title>
+            <Title>{currentVideo?.title}</Title>
             <Details>
               <Info>
-                {currentVideo.views} views • {format(currentVideo.createdAt)}
+                {currentVideo?.views} views • {format(currentVideo?.createdAt)}
               </Info>
 
               {currentUser &&
 
                 <Buttons>
                   <Button onClick={handleLike}>
-                    {currentVideo.likes?.includes(currentUser?._id) ? (
+                    {currentVideo?.likes?.includes(currentUser._id) ? (
                       < BsHandIndexThumbFill />
                     ) : (
                       <BsHandThumbsUp />
                     )}{" "}
-                    {currentVideo.likes?.length}
+                    {currentVideo?.likes?.length}
                   </Button>
                   <Button onClick={handleDislike}>
-                    {currentVideo.dislikes?.includes(currentUser?._id) ? (
+                    {currentVideo?.dislikes?.includes(currentUser?._id) ? (
                       <BsFillHandThumbsDownFill />
                     ) : (
                       <BsHandThumbsDown />
@@ -235,7 +294,7 @@ const Video = () => {
                 <ChannelDetail>
                   <ChannelName>{channel.name}</ChannelName>
                   <ChannelCounter>{channel.subscribers} subscribers</ChannelCounter>
-                  <Description>{currentVideo.description}</Description>
+                  <Description>{currentVideo?.description}</Description>
                 </ChannelDetail>
               </ChannelInfo>
               {currentUser &&
@@ -247,9 +306,11 @@ const Video = () => {
               }
             </Channel>
             <Hr />
-            {currentUser && <Comments videoId={currentVideo._id} />}
+            {currentUser && <Comments videoId={currentVideo?._id} />}
           </Content>
-          <Recommendation tags={currentVideo.tags} />
+
+
+          <Recommendation tags={currentVideo?.tags} />
         </Container>
 
         :

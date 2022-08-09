@@ -46,8 +46,9 @@ const Wrapper = styled.div`
 
   @media (max-width: 700px){
     width: 80%;
-    height: 80%;
-   
+    height: 90%;
+    gap: 1rem;
+
   }
 `;
 const Close = styled.div`

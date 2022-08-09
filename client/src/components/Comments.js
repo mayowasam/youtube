@@ -21,6 +21,11 @@ const Avatar = styled.img`
   width: 50px;
   height: 50px;
   border-radius: 50%;
+
+  @media(max-width: 700px){
+    width: 30px;
+   height: 30px;
+  }
 `;
 
 
